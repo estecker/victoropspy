@@ -4,7 +4,7 @@ VictorOps CLI Program in Python
 
 I wrote this small Python program to help me manage my on-call duties with VictorOps. 
 
-There is still a lot of work that can be done with this program. But as of now, it does everything I need it to do. It's still better than the Victor Ops web UI.
+There is still a lot of work that can be done with this program. But as of now, it does everything I need it to do. It's still better than the VictorOps web UI.
 
 ##Requirements 
 This program requires Python version 3 and the Requests library.
