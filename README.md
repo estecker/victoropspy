@@ -33,7 +33,7 @@ Filter out results to only incidents with 'currentPhase='ACKED''
 Acknowledge all alerts assigned to the user specified in config.yml 
 
 ````
-./victoropspy.py --action ack-mine 
+./victoropspy.py --action ack-user 
 ````
 
 Run a command for every matching incident. The strings "HOSTNAME" and "INCIDENTNUMBER" will be replaced by real the information in the incident. You could also wrap this command with 'watch' to periodically poll VictorOps. But don't forget about their API rate limiting.
