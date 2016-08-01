@@ -16,11 +16,11 @@ Those settings are saved in a config.yml file that created at first run.
 ###Examples:
 List all active incidents:
 ````
-./victoropspy --action list
+./victoropspy.py --action list
 ````
 See more debug information:
 ````
-./victoropspy --action list --verbosity debug 
+./victoropspy.py --action list --verbosity debug 
 
 ````
 
