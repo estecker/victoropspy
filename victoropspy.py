@@ -19,12 +19,12 @@ def setup(cmd_args):
     conf_file = os.path.dirname(os.path.abspath(__file__)) + os.path.sep + OX_VO_CONFIG
     if not os.path.isfile(conf_file):
         logging.info("Configuration file was not found at {}".format(conf_file))
-        logging.info("Looks like you need to setup a few things first")
-        api_id = input("What is your API ID?")
+        logging.info("Looks like you need to setup a few things first.")
+        api_id = input("What is your API ID? ")
         api_key = input("What is your API key? ")
-        api_username = input("What is your username?")
+        api_username = input("What is your username? ")
         # TODO test out the id/key combo
-        config = {"id": api_id, "key": api_key, "api_username": api_username}
+        config = {"api_id": api_id, "api_key": api_key, "api_username": api_username}
         with open(conf_file, 'w') as text_file:  # Write out config file
             text_file.write(yaml.dump(config, default_flow_style=False))
     with open(conf_file, 'r') as conf_file:  # Read in yaml config file every time
