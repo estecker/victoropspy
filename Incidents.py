@@ -13,10 +13,11 @@ it can be found via the reports API.
 
 class Incidents(object):
 
-    def __init__(self, api_base_url=None, api_id=None, api_key=None):
-        self.api_base_url = api_base_url
-        self.api_id = api_id
-        self.api_key = api_key
+    def __init__(self, config):
+        self.api_base_url = config["api_base_url"]
+        self.api_id = config["api_id"]
+        self.api_key = config["api_key"]
+        self.api_username = config["api_username"]
         self.headers = {'X-VO-Api-Id': self.api_id, 'X-VO-Api-Key': self.api_key}
 
     def get(self):

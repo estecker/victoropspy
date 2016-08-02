@@ -12,8 +12,8 @@ import Incidents
 class Reports(Incidents.Incidents):
     limit = 100
 
-    def __init__(self, api_base_url=None, api_id=None, api_key=None):
-        super().__init__(api_base_url, api_id, api_key)
+    def __init__(self, config):
+        super().__init__(config)
 
     def get(self, params):
         """Return a the matching incidents in namedtuple"""

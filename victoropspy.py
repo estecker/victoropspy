@@ -13,9 +13,9 @@ __author__ = 'estecker@gmail.com'
 
 # Config file that lives in same folder. Added to .gitignore
 OX_VO_CONFIG = "config.yml"
+BASE_URL = "https://api.victorops.com"
 
-
-def setup(cmd_args):
+def setup():
     conf_file = os.path.dirname(os.path.abspath(__file__)) + os.path.sep + OX_VO_CONFIG
     if not os.path.isfile(conf_file):
         logging.info("Configuration file was not found at {}".format(conf_file))
@@ -24,14 +24,13 @@ def setup(cmd_args):
         api_key = input("What is your API key? ")
         api_username = input("What is your username? ")
         # TODO test out the id/key combo
-        config = {"api_id": api_id, "api_key": api_key, "api_username": api_username}
+        config = {"api_id": api_id, "api_key": api_key, "api_username": api_username, "api_base_url": BASE_URL}
         with open(conf_file, 'w') as text_file:  # Write out config file
             text_file.write(yaml.dump(config, default_flow_style=False))
     with open(conf_file, 'r') as conf_file:  # Read in yaml config file every time
         config = yaml.load(conf_file)
-        cmd_args.update(config)  # Update cmd_args with new values from config text file
-    logging.debug(cmd_args)
-    return cmd_args
+    logging.debug(config)
+    return config
 
 
 def main():
@@ -51,9 +50,9 @@ def main():
     parser.add_argument("--verbosity", choices=['warning', 'info', 'debug'], default='info')
     args = parser.parse_args()
     logging.basicConfig(format='%(message)s', stream=sys.stdout, level=args.verbosity.upper())
-    setup(vars(args))
-    incidents = Incidents.Incidents(api_id=args.api_id, api_key=args.api_key, api_base_url=args.api_base_url)
-    reports = Reports.Reports(api_id=args.api_id, api_key=args.api_key, api_base_url=args.api_base_url)
+    config_values = setup()
+    incidents = Incidents.Incidents(config=config_values)
+    reports = Reports.Reports(config=config_values)
     if args.action == 'list' and args.report_kv:
         logging.error("These combination of arguments are not supported yet")
         parser.print_help()
@@ -64,9 +63,9 @@ def main():
     elif args.action == 'exec' and args.exec:
         incidents.exec(search_string=args.regex, command_line=args.exec)
     elif args.action == 'ack-user':
-        incidents.ack_user(args.api_username)
+        incidents.ack_user(config_values["api_username"])
     elif args.action == 'resolve-user':
-        incidents.resolve_user(args.api_username)
+        incidents.resolve_user(config_values["api_username"])
     elif args.action == 'report' and args.report_kv:
         report_res = reports.search(search_kv=args.report_kv)
         print(report_res)
